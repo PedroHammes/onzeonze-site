@@ -251,6 +251,50 @@ section{padding:96px 0}
   background:#fff;color:var(--grafite);border:1px solid rgba(50,50,50,.10);
 }
 
+/* ---------- SERVIÇOS: LAYOUT 2 COLUNAS + ACORDEÃO ---------- */
+.svc-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:start}
+.svc-intro .eyebrow{margin-bottom:18px}
+.svc-intro h2{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1}
+.svc-intro h2 span{color:var(--terracota)}
+
+/* Lista de pílulas expansíveis */
+.svc-acc{display:flex;flex-direction:column;gap:14px}
+.svc-acc-item{
+  border:1.5px solid rgba(161,80,53,.45);
+  border-radius:26px;overflow:hidden;background:#fff;
+  transition:border-color var(--ease),box-shadow var(--ease),border-radius var(--ease);
+}
+.svc-acc-item.open{
+  border-color:var(--terracota);border-radius:20px;
+  box-shadow:var(--shadow);
+}
+.svc-acc-head{
+  width:100%;background:none;border:none;cursor:pointer;text-align:left;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:18px 26px;font-family:var(--font-body);font-weight:600;
+  font-size:.98rem;letter-spacing:.5px;text-transform:uppercase;color:var(--grafite);
+  transition:color var(--ease);
+}
+.svc-acc-head:hover{color:var(--terracota)}
+.svc-acc-item.open .svc-acc-head{color:var(--terracota)}
+.svc-acc-head .chev{
+  flex:none;width:20px;height:20px;position:relative;transition:transform var(--ease);
+}
+.svc-acc-head .chev::before,.svc-acc-head .chev::after{
+  content:"";position:absolute;top:50%;width:11px;height:2px;background:var(--terracota);border-radius:2px;
+}
+.svc-acc-head .chev::before{left:0;transform:rotate(45deg)}
+.svc-acc-head .chev::after{right:0;transform:rotate(-45deg)}
+.svc-acc-item.open .chev{transform:rotate(180deg)}
+.svc-acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.svc-acc-body-inner{padding:0 26px 24px}
+.svc-acc-body .svc-desc{margin-bottom:16px;color:rgba(50,50,50,.82)}
+.svc-acc-body .svc-list{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:20px}
+.svc-acc-body .svc-list span{
+  font-size:.82rem;font-weight:500;padding:6px 13px;border-radius:999px;
+  background:var(--areia);color:var(--grafite);border:1px solid rgba(50,50,50,.10);
+}
+
 /* ---------- SERVIÇOS ---------- */
 .sec-head{text-align:center;max-width:640px;margin:0 auto 56px}
 .sec-head h2{margin-top:14px}
@@ -498,39 +542,67 @@ section{padding:96px 0}
 <!-- ============================================================ SERVIÇOS ============================================================ -->
 <section class="bg-branco" id="servicos">
   <div class="container">
-    <div class="sec-head reveal">
-      <span class="eyebrow">O que a gente faz</span>
-      <h2>Estratégia, produção e gestão no mesmo lugar</h2>
-    </div>
-
-    <!-- LETREIRO DE SERVIÇOS (marquee) — clique para ver detalhes -->
-    <div class="marquee reveal" role="tablist" aria-label="Serviços prestados">
-      <div class="marquee-track" id="mqTrack">
-        <!-- Sequência duplicada para o loop parecer infinito -->
-        <button class="mq-item" data-svc="social" role="tab" aria-selected="false">Social Media</button>
-        <button class="mq-item" data-svc="captacao" role="tab" aria-selected="false">Captação</button>
-        <button class="mq-item" data-svc="trafego" role="tab" aria-selected="false">Tráfego Pago</button>
-        <button class="mq-item" data-svc="sites" role="tab" aria-selected="false">Sites e Landing Pages</button>
-        <button class="mq-item" data-svc="social" role="tab" aria-selected="false" tabindex="-1" aria-hidden="true">Social Media</button>
-        <button class="mq-item" data-svc="captacao" role="tab" aria-selected="false" tabindex="-1" aria-hidden="true">Captação</button>
-        <button class="mq-item" data-svc="trafego" role="tab" aria-selected="false" tabindex="-1" aria-hidden="true">Tráfego Pago</button>
-        <button class="mq-item" data-svc="sites" role="tab" aria-selected="false" tabindex="-1" aria-hidden="true">Sites e Landing Pages</button>
+    <div class="svc-layout">
+      <!-- Coluna esquerda: título -->
+      <div class="svc-intro reveal">
+        <span class="eyebrow">Cuidamos de tudo. Você foca na sua empresa</span>
+        <h2>Seu <span>marketing</span> não precisa ser mais uma demanda na sua agenda.</h2>
       </div>
-    </div>
 
-    <!-- PAINEL DE DETALHES (troca conforme o serviço clicado) -->
-    <div class="svc-panel" id="svcPanel" role="tabpanel" aria-live="polite">
-      <div class="svc-panel-grid">
-        <div class="svc-ico" id="svcIco"></div>
-        <div>
-          <h3 id="svcTitle"></h3>
-          <p class="svc-desc" id="svcDesc"></p>
-          <div class="svc-list" id="svcList"></div>
-          <a class="btn btn-primary" id="svcCta" href="#" target="_blank" rel="noopener">Quero esse serviço</a>
+      <!-- Coluna direita: pílulas expansíveis (clique para ver detalhes) -->
+      <div class="svc-acc reveal" id="svcAcc">
+        <div class="svc-acc-item">
+          <button class="svc-acc-head" aria-expanded="false">Gestão estratégica de redes sociais <span class="chev"></span></button>
+          <div class="svc-acc-body"><div class="svc-acc-body-inner">
+            <p class="svc-desc">Cuidamos da presença da sua marca de ponta a ponta: planejamento, criação, publicação e acompanhamento. Uma comunicação consistente, com a cara da marca e pensada para as pessoas certas.</p>
+            <div class="svc-list"><span>Planejamento</span><span>Calendário editorial</span><span>Publicação</span><span>Relatórios</span></div>
+            <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20gest%C3%A3o%20de%20redes%20sociais" target="_blank" rel="noopener">Quero esse serviço</a>
+          </div></div>
+        </div>
+        <div class="svc-acc-item">
+          <button class="svc-acc-head" aria-expanded="false">Produção de conteúdo: vídeos, fotos & design <span class="chev"></span></button>
+          <div class="svc-acc-body"><div class="svc-acc-body-inner">
+            <p class="svc-desc">Imagem é a primeira impressão. Produzimos vídeos, fotos e design que valorizam o seu produto e traduzem a identidade da marca — do ensaio ao conteúdo do dia a dia.</p>
+            <div class="svc-list"><span>Vídeo</span><span>Fotografia</span><span>Design</span><span>Direção de arte</span></div>
+            <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20produ%C3%A7%C3%A3o%20de%20conte%C3%BAdo" target="_blank" rel="noopener">Quero esse serviço</a>
+          </div></div>
+        </div>
+        <div class="svc-acc-item">
+          <button class="svc-acc-head" aria-expanded="false">Gestão de tráfego pago <span class="chev"></span></button>
+          <div class="svc-acc-body"><div class="svc-acc-body-inner">
+            <p class="svc-desc">Estratégias de mídia paga para colocar sua marca na frente das pessoas certas. Estruturamos, acompanhamos e ajustamos as campanhas para transformar investimento em crescimento — com transparência nos números.</p>
+            <div class="svc-list"><span>Meta Ads</span><span>Google Ads</span><span>Segmentação</span><span>Otimização</span></div>
+            <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20tr%C3%A1fego%20pago" target="_blank" rel="noopener">Quero esse serviço</a>
+          </div></div>
+        </div>
+        <div class="svc-acc-item">
+          <button class="svc-acc-head" aria-expanded="false">Criação de conteúdo estratégico <span class="chev"></span></button>
+          <div class="svc-acc-body"><div class="svc-acc-body-inner">
+            <p class="svc-desc">Conteúdo com direção, não achismo. Criamos peças alinhadas ao posicionamento da marca e aos objetivos do negócio — para que cada publicação tenha um porquê.</p>
+            <div class="svc-list"><span>Copywriting</span><span>Roteiros</span><span>Linha editorial</span><span>Storytelling</span></div>
+            <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20cria%C3%A7%C3%A3o%20de%20conte%C3%BAdo" target="_blank" rel="noopener">Quero esse serviço</a>
+          </div></div>
+        </div>
+        <div class="svc-acc-item">
+          <button class="svc-acc-head" aria-expanded="false">Fotografia de produtos <span class="chev"></span></button>
+          <div class="svc-acc-body"><div class="svc-acc-body-inner">
+            <p class="svc-desc">Marca de produto se vende pelo olhar. Ensaios e produções que destacam o seu produto com identidade visual própria e coesa em todos os canais.</p>
+            <div class="svc-list"><span>Ensaio de produto</span><span>Still</span><span>Lifestyle</span><span>Tratamento</span></div>
+            <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20fotografia%20de%20produtos" target="_blank" rel="noopener">Quero esse serviço</a>
+          </div></div>
+        </div>
+        <div class="svc-acc-item">
+          <button class="svc-acc-head" aria-expanded="false">Consultoria estratégica <span class="chev"></span></button>
+          <div class="svc-acc-body"><div class="svc-acc-body-inner">
+            <p class="svc-desc">Antes de produzir, a gente entende. Estudamos sua marca, seu público e seu mercado para montar um plano de posicionamento e conteúdo com direção clara.</p>
+            <div class="svc-list"><span>Diagnóstico</span><span>Posicionamento</span><span>Plano de ação</span><span>Acompanhamento</span></div>
+            <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20consultoria%20estrat%C3%A9gica" target="_blank" rel="noopener">Quero esse serviço</a>
+          </div></div>
         </div>
       </div>
     </div>
-    <div class="center-cta reveal">
+
+    <div class="center-cta reveal" style="margin-top:52px">
       <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20entender%20qual%20servi%C3%A7o%20combina%20com%20a%20minha%20marca" target="_blank" rel="noopener">Qual desses faz sentido pra você? Chama no WhatsApp</a>
     </div>
   </div>
@@ -809,6 +881,27 @@ function abrirServico(key, btn){
 }
 svcItems.forEach(btn=>{
   btn.addEventListener('click', ()=>abrirServico(btn.dataset.svc, btn));
+});
+
+/* Acordeão de serviços — clica para expandir/recolher */
+document.querySelectorAll('.svc-acc-head').forEach(head=>{
+  head.addEventListener('click', ()=>{
+    const item = head.parentElement;
+    const body = item.querySelector('.svc-acc-body');
+    const isOpen = item.classList.contains('open');
+    // fecha todos
+    document.querySelectorAll('.svc-acc-item').forEach(i=>{
+      i.classList.remove('open');
+      i.querySelector('.svc-acc-body').style.maxHeight = null;
+      i.querySelector('.svc-acc-head').setAttribute('aria-expanded','false');
+    });
+    // abre o clicado (se não estava aberto)
+    if(!isOpen){
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      head.setAttribute('aria-expanded','true');
+    }
+  });
 });
 
 /* Scroll reveal */
