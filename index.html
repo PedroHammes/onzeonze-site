@@ -338,31 +338,59 @@ section{padding:96px 0}
 .step p{color:rgba(255,255,255,.85);font-size:.96rem}
 .processo .center-cta{margin-top:52px}
 
-/* ---------- PORTFÓLIO ---------- */
-.grid-port{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.port-item{
-  border-radius:var(--radius);overflow:hidden;position:relative;
-  aspect-ratio:3/4;cursor:pointer;box-shadow:var(--shadow);
+
+/* ---------- TABELA DE CUSTO (COMPARATIVO) ---------- */
+.cost{background:var(--areia)}
+.cost .sec-head h2{color:var(--terracota)}
+.cost .sec-head p{color:var(--terracota)}
+.cost-arrow{display:flex;justify-content:center;margin:8px 0 40px;color:var(--terracota);animation:bounce 2s infinite}
+.cost-arrow svg{width:20px;height:20px}
+.compare-wrap{max-width:880px;margin:0 auto}
+.compare{
+  width:100%;border-collapse:collapse;background:#fff;
+  border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
 }
-.port-item .img{
-  position:absolute;inset:0;transition:transform .5s ease;
-  /* PLACEHOLDER: substituir por foto real do projeto */
+.compare thead th{
+  font-family:var(--font-body);font-weight:600;font-size:.95rem;text-align:left;
+  padding:22px 24px;color:var(--grafite);border-bottom:1px solid rgba(50,50,50,.10);
 }
-.port-item:hover .img{transform:scale(1.06)}
-.port-item .meta{
-  position:absolute;left:0;right:0;bottom:0;padding:20px;
-  background:linear-gradient(transparent,rgba(50,50,50,.82));
-  color:#fff;transform:translateY(8px);opacity:.95;transition:var(--ease);
+.compare thead th.col-onze{color:var(--terracota)}
+.compare tbody td{padding:17px 24px;font-size:.98rem;border-bottom:1px solid rgba(50,50,50,.07)}
+.compare .role{font-weight:600;color:var(--grafite)}
+.compare .price{color:rgba(50,50,50,.6)}
+.compare .col-onze-cell{background:rgba(161,80,53,.045)}
+.compare .incluso{display:inline-flex;align-items:center;gap:8px;color:var(--terracota);font-weight:600}
+.compare .incluso svg{width:17px;height:17px;flex:none}
+.compare .row-total td{padding:24px;border-top:2px solid rgba(50,50,50,.12);border-bottom:none}
+.compare .row-total .role{text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.compare .total-riscado{color:rgba(50,50,50,.5);text-decoration:line-through;font-weight:600}
+.compare .total-onze{color:var(--terracota);font-weight:700}
+.compare-note{text-align:center;font-size:.84rem;font-style:italic;color:rgba(50,50,50,.6);margin-top:20px}
+.compare-mobile-label{display:none}
+
+/* ---------- ANÁLISE GRÁTIS (card simples -> Google Forms) ---------- */
+.analise{background:var(--grafite);color:#fff}
+.analise-grid{display:grid;grid-template-columns:0.95fr 1.05fr;gap:56px;align-items:center}
+.analise-intro h2{color:#fff;font-size:clamp(2rem,3.8vw,3rem);line-height:1.12;margin-bottom:26px}
+.analise-intro h2 u{text-decoration-color:var(--terracota-claro);text-underline-offset:5px}
+.analise-benef{display:flex;flex-direction:column;gap:18px}
+.analise-benef p{color:rgba(255,255,255,.82);padding-left:16px;border-left:2px solid var(--terracota);font-size:1rem}
+/* Card branco simples e clicável */
+.form-card{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  background:#fff;border-radius:22px;padding:48px 38px;
+  box-shadow:var(--shadow-strong);transition:transform var(--ease),box-shadow var(--ease);
 }
-.port-item:hover .meta{transform:translateY(0)}
-.port-item .meta .tag{font-size:.76rem;color:var(--terracota-claro);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
-.port-item .meta h3{font-family:var(--font-body);font-weight:600;font-size:1.15rem}
-.p1{background:linear-gradient(150deg,#b56a4d,#e7d3c6)}
-.p2{background:linear-gradient(150deg,#6f5648,#cbb6a6)}
-.p3{background:linear-gradient(150deg,#a15035,#d9a491)}
-.p4{background:linear-gradient(150deg,#8a4229,#c47b5f)}
-.p5{background:linear-gradient(150deg,#c3a288,#f0e6dc)}
-.p6{background:linear-gradient(150deg,#5c4a40,#b08f78)}
+.form-card:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(0,0,0,.28)}
+.form-card .fc-ico{
+  width:76px;height:76px;border-radius:20px;margin-bottom:24px;
+  background:rgba(161,80,53,.10);color:var(--terracota);
+  display:flex;align-items:center;justify-content:center;
+}
+.form-card .fc-ico svg{width:38px;height:38px}
+.form-card h3{font-family:var(--font-body);font-weight:700;font-size:1.4rem;color:var(--grafite);margin-bottom:12px}
+.form-card p{color:rgba(50,50,50,.7);font-size:1rem;max-width:36ch;margin-bottom:28px}
+.form-card .btn{width:100%;max-width:320px}
 
 /* ---------- DEPOIMENTOS ---------- */
 .deps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -480,7 +508,6 @@ section{padding:96px 0}
     <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
       <a href="#sobre">Sobre</a>
       <a href="#servicos">Serviços</a>
-      <a href="#portfolio">Portfólio</a>
       <a href="#faq">Contato</a>
       <!-- WHATSAPP: troque o número em todos os links wa.me -->
       <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20os%20servi%C3%A7os%20do%20OnzeOnze" target="_blank" rel="noopener">
@@ -677,19 +704,100 @@ section{padding:96px 0}
   </div>
 </section>
 
+<!-- ============================================================ CUSTO DE UM TIME ============================================================ -->
+<!-- >>> AJUSTE OS VALORES: preços abaixo são referência de mercado; troque pelos que fizerem sentido. -->
+<section class="cost" id="comparativo">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>Quanto custa um time de marketing, hoje?</h2>
+      <p>Para aplicar o que fazemos pela sua marca, você precisaria montar um time inteiro</p>
+    </div>
+    <div class="cost-arrow reveal" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+    </div>
+
+    <div class="compare-wrap reveal">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>Profissional</th>
+            <th>Contratação separada</th>
+            <th class="col-onze">Com nosso serviço</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="role">Social Media Estrategista</td>
+            <td class="price"><span class="compare-mobile-label">Separado: </span>R$ 5.000/mês</td>
+            <td class="col-onze-cell"><span class="incluso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Incluso</span></td>
+          </tr>
+          <tr>
+            <td class="role">Gestor de Tráfego</td>
+            <td class="price"><span class="compare-mobile-label">Separado: </span>R$ 4.500/mês</td>
+            <td class="col-onze-cell"><span class="incluso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Incluso</span></td>
+          </tr>
+          <tr>
+            <td class="role">Videomaker</td>
+            <td class="price"><span class="compare-mobile-label">Separado: </span>R$ 3.000/mês</td>
+            <td class="col-onze-cell"><span class="incluso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Incluso</span></td>
+          </tr>
+          <tr>
+            <td class="role">Fotógrafo</td>
+            <td class="price"><span class="compare-mobile-label">Separado: </span>R$ 2.000/mês</td>
+            <td class="col-onze-cell"><span class="incluso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Incluso</span></td>
+          </tr>
+          <tr>
+            <td class="role">Designer gráfico</td>
+            <td class="price"><span class="compare-mobile-label">Separado: </span>R$ 3.000/mês</td>
+            <td class="col-onze-cell"><span class="incluso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Incluso</span></td>
+          </tr>
+          <tr>
+            <td class="role">Criação/manutenção de site</td>
+            <td class="price"><span class="compare-mobile-label">Separado: </span>R$ 2.500/mês</td>
+            <td class="col-onze-cell"><span class="incluso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Incluso</span></td>
+          </tr>
+          <tr class="row-total">
+            <td class="role">Total</td>
+            <td><span class="compare-mobile-label">Separado: </span><span class="total-riscado">R$ 20.000/mês</span></td>
+            <td class="col-onze-cell"><span class="compare-mobile-label">Nosso serviço: </span><span class="total-onze">A partir de R$ 3.000/mês</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="compare-note">*Piso salarial de cada profissional baseado no mercado atual. Fonte: Glassdoor*</p>
+    </div>
+
+    <div class="center-cta reveal" style="margin-top:40px">
+      <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20OnzeOnze" target="_blank" rel="noopener">Quero saber mais</a>
+    </div>
+  </div>
+</section>
 
 
+<!-- ============================================================ ANÁLISE GRÁTIS ============================================================ -->
+<!-- >>> TROQUE o link do Google Forms no href do card (COLE_AQUI_O_LINK_DO_GOOGLE_FORMS) -->
+<section class="analise" id="analise">
+  <div class="container">
+    <div class="analise-grid">
+      <!-- Coluna esquerda: título + benefícios -->
+      <div class="analise-intro reveal">
+        <h2>Ganhe uma <u>análise de perfil</u> grátis</h2>
+        <div class="analise-benef">
+          <p>Fazemos uma análise profissional do perfil da sua empresa</p>
+          <p>Te entregamos um PDF com melhorias e oportunidades para melhorar sua comunicação digital</p>
+          <p>Preencha o formulário e receba o material via WhatsApp</p>
+        </div>
+      </div>
 
-<!-- ============================================================ CTA FINAL ============================================================ -->
-<section class="cta-final" id="contato">
-  <div class="container reveal">
-    <span class="eyebrow" style="color:#fff;justify-content:center">Bora começar?</span>
-    <h2>Bora construir o próximo capítulo da sua marca?</h2>
-    <p>Conta pra gente onde sua marca está e para onde quer ir. A primeira conversa é sem compromisso — só a gente entendendo seu momento e vendo como pode ajudar.</p>
-    <a class="btn btn-light" style="font-size:1.1rem;padding:18px 40px" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20conversar%20sobre%20a%20minha%20marca" target="_blank" rel="noopener">
-      <svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.5 15.3L2 22l4.8-1.5A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.8.9.9-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
-      Chamar no WhatsApp
-    </a>
+      <!-- Coluna direita: card branco simples -->
+      <div class="form-card reveal">
+        <div class="fc-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+        </div>
+        <h3>Análise de perfil gratuita</h3>
+        <p>Leva menos de 2 minutos. Preencha o formulário e a gente te envia o diagnóstico da sua marca.</p>
+        <a class="btn btn-primary" href="COLE_AQUI_O_LINK_DO_GOOGLE_FORMS" target="_blank" rel="noopener">Preencher formulário</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -742,7 +850,6 @@ section{padding:96px 0}
         <h4>Navegação</h4>
         <a href="#sobre">Sobre</a>
         <a href="#servicos">Serviços</a>
-        <a href="#portfolio">Portfólio</a>
         <a href="#faq">Dúvidas</a>
       </div>
       <div class="foot-col">
