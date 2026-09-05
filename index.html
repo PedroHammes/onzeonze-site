@@ -128,7 +128,9 @@ section{padding:96px 0}
   content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;
   background:var(--terracota);transition:width var(--ease);
 }
-.nav-links a:not(.btn):hover::after{width:100%}
+.nav-links a:not(.btn):hover::after,
+.nav-links a:not(.btn).active-link::after{width:100%}
+.nav-links a:not(.btn).active-link{color:var(--terracota)}
 .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:110}
 .nav-toggle span{display:block;width:26px;height:2px;background:var(--grafite);margin:5px 0;transition:var(--ease)}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -196,60 +198,6 @@ section{padding:96px 0}
 .sobre-text h2{margin:16px 0 22px}
 .sobre-text p{margin-bottom:16px}
 .sobre-text .btn{margin-top:14px}
-
-/* ---------- LETREIRO DE SERVIÇOS (MARQUEE) ---------- */
-.marquee{
-  overflow:hidden;width:100%;
-  border-top:1px solid rgba(50,50,50,.12);
-  border-bottom:1px solid rgba(50,50,50,.12);
-  padding:22px 0;margin-bottom:44px;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-          mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-}
-.marquee-track{
-  display:flex;width:max-content;gap:0;
-  animation:scroll-left 26s linear infinite;
-}
-.marquee:hover .marquee-track{animation-play-state:paused}
-@keyframes scroll-left{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
-}
-.mq-item{
-  display:inline-flex;align-items:center;gap:26px;
-  padding:0 26px;background:none;border:none;cursor:pointer;
-  font-family:var(--font-display);font-size:clamp(1.8rem,3.2vw,2.6rem);
-  text-transform:uppercase;letter-spacing:1px;line-height:1;
-  color:var(--grafite);transition:color var(--ease);white-space:nowrap;
-}
-.mq-item::after{content:"•";color:var(--terracota);font-size:.6em}
-.mq-item:hover{color:var(--terracota)}
-.mq-item.active{color:var(--terracota)}
-.marquee-track:hover .mq-item{color:rgba(50,50,50,.35)}
-.marquee-track:hover .mq-item:hover{color:var(--terracota)}
-
-/* Painel de detalhes do serviço */
-.svc-panel{
-  background:var(--areia);border-radius:var(--radius);
-  padding:0;overflow:hidden;margin-bottom:56px;
-  max-height:0;opacity:0;
-  transition:max-height .45s ease,opacity .4s ease,margin .45s ease,padding .45s ease;
-}
-.svc-panel.open{max-height:520px;opacity:1;padding:40px}
-.svc-panel-grid{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start}
-.svc-panel .svc-ico{
-  width:64px;height:64px;border-radius:14px;flex:none;
-  background:rgba(161,80,53,.10);color:var(--terracota);
-  display:flex;align-items:center;justify-content:center;
-}
-.svc-panel .svc-ico svg{width:32px;height:32px}
-.svc-panel h3{font-family:var(--font-body);font-weight:700;font-size:1.5rem;margin-bottom:12px}
-.svc-panel .svc-desc{margin-bottom:20px;max-width:60ch}
-.svc-panel .svc-list{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
-.svc-panel .svc-list span{
-  font-size:.86rem;font-weight:500;padding:7px 14px;border-radius:999px;
-  background:#fff;color:var(--grafite);border:1px solid rgba(50,50,50,.10);
-}
 
 /* ---------- SERVIÇOS: LAYOUT 2 COLUNAS + ACORDEÃO ---------- */
 .svc-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:start}
@@ -450,8 +398,40 @@ section{padding:96px 0}
 }
 
 /* ---------- SCROLL REVEAL ---------- */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+:root{--ease-out:cubic-bezier(.22,.61,.36,1)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);will-change:opacity,transform}
 .reveal.in{opacity:1;transform:none}
+/* variações de direção */
+.reveal.from-left{transform:translateX(-32px)}
+.reveal.from-right{transform:translateX(32px)}
+.reveal.zoom-in{transform:scale(.94)}
+.reveal.from-left.in,.reveal.from-right.in,.reveal.zoom-in.in{transform:none}
+/* stagger: atraso incremental para filhos revelados juntos */
+.stagger.in > *{animation:rise .6s var(--ease-out) both}
+.stagger.in > *:nth-child(1){animation-delay:.05s}
+.stagger.in > *:nth-child(2){animation-delay:.13s}
+.stagger.in > *:nth-child(3){animation-delay:.21s}
+.stagger.in > *:nth-child(4){animation-delay:.29s}
+.stagger.in > *:nth-child(5){animation-delay:.37s}
+.stagger.in > *:nth-child(6){animation-delay:.45s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* Botões: brilho sutil ao passar o mouse */
+.btn{position:relative;overflow:hidden}
+.btn::after{
+  content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);
+  transform:skewX(-18deg);transition:none;
+}
+.btn:hover::after{left:130%;transition:left .7s var(--ease-out)}
+.btn-outline::after,.btn-pill::after{background:linear-gradient(100deg,transparent,rgba(161,80,53,.18),transparent)}
+
+/* Cards de serviço/números: leve elevação no hover já existe; adiciona feedback ao ativo */
+.stat{transition:transform .3s var(--ease-out)}
+.stat:hover{transform:translateY(-4px)}
+.stat:hover .stat-ico{background:rgba(161,80,53,.22)}
+.stat .stat-ico{transition:background .3s var(--ease-out),transform .3s var(--ease-out)}
+.stat:hover .stat-ico{transform:scale(1.08)}
 
 /* ============================================================
    RESPONSIVO
@@ -479,9 +459,6 @@ section{padding:96px 0}
   .sobre-grid{grid-template-columns:1fr;gap:34px}
   .sobre-visual{max-height:320px}
   .services{grid-template-columns:1fr}
-  .svc-panel.open{max-height:900px;padding:28px}
-  .svc-panel-grid{grid-template-columns:1fr;gap:18px}
-  .mq-item{font-size:1.7rem;padding:0 18px;gap:18px}
   .deps{grid-template-columns:1fr}
   .grid-port{grid-template-columns:repeat(2,1fr);gap:14px}
   .foot-grid{grid-template-columns:1fr;gap:32px}
@@ -524,7 +501,7 @@ section{padding:96px 0}
 <!-- ============================================================ HERO ============================================================ -->
 <section class="hero" id="topo">
   <div class="container">
-    <div class="hero-center">
+    <div class="hero-center reveal stagger in">
       <span class="hero-logo">
         <span class="mark">e:)</span>
         <span class="name">Onze<span>Onze</span></span>
@@ -542,37 +519,37 @@ section{padding:96px 0}
 <!-- >>> AJUSTE OS NÚMEROS: troque pelos resultados reais e comprováveis do studio -->
 <section class="stats" aria-label="Números do OnzeOnze">
   <div class="container">
-    <div class="stats-grid">
-      <div class="stat reveal">
+    <div class="stats-grid reveal stagger">
+      <div class="stat">
         <div class="stat-ico">
           <!-- marcas atendidas: pessoas/handshake -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <div class="num">+40</div>
+        <div class="num" data-prefix="+" data-count="40">+40</div>
         <div class="label">Marcas atendidas</div>
       </div>
-      <div class="stat reveal">
+      <div class="stat">
         <div class="stat-ico">
           <!-- alcance: globo/ondas -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
         </div>
-        <div class="num">+10M</div>
+        <div class="num" data-prefix="+" data-count="10" data-suffix="M">+10M</div>
         <div class="label">De alcance gerado</div>
       </div>
-      <div class="stat reveal">
+      <div class="stat">
         <div class="stat-ico">
           <!-- seguidores: tendência de alta -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
         </div>
-        <div class="num">+200 mil</div>
+        <div class="num" data-prefix="+" data-count="200" data-suffix=" mil">+200 mil</div>
         <div class="label">Seguidores conquistados</div>
       </div>
-      <div class="stat reveal">
+      <div class="stat">
         <div class="stat-ico">
           <!-- experiência: selo/estrela -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6 6.6.6-5 4.3 1.5 6.5L12 17l-5.9 2.4L7.5 12.9l-5-4.3L9.1 8z"/></svg>
         </div>
-        <div class="num">5+</div>
+        <div class="num" data-count="5" data-suffix="+">5+</div>
         <div class="label">Anos de experiência</div>
       </div>
     </div>
@@ -584,13 +561,13 @@ section{padding:96px 0}
   <div class="container">
     <div class="svc-layout">
       <!-- Coluna esquerda: título -->
-      <div class="svc-intro reveal">
+      <div class="svc-intro reveal from-left">
         <span class="eyebrow">Cuidamos de tudo. Você foca na sua empresa</span>
         <h2>Seu <span>marketing</span> não precisa ser mais uma demanda na sua agenda.</h2>
       </div>
 
       <!-- Coluna direita: pílulas expansíveis (clique para ver detalhes) -->
-      <div class="svc-acc reveal" id="svcAcc">
+      <div class="svc-acc reveal from-right" id="svcAcc">
         <div class="svc-acc-item">
           <button class="svc-acc-head" aria-expanded="false">Gestão estratégica de redes sociais <span class="chev"></span></button>
           <div class="svc-acc-body"><div class="svc-acc-body-inner">
@@ -667,17 +644,17 @@ section{padding:96px 0}
       <span class="eyebrow">Depoimentos</span>
       <h2>O que dizem sobre a gente</h2>
     </div>
-    <div class="deps">
+    <div class="deps reveal stagger">
       <!-- PLACEHOLDER: depoimentos e fotos reais -->
-      <div class="dep reveal">
+      <div class="dep">
         <p class="quote">Depoimento real do cliente aqui — a frase curta que resume o resultado ou a experiência de trabalhar com o studio.</p>
         <div class="who"><div class="avatar"></div><div><b>Nome do Cliente</b><span>Marca / Cargo</span></div></div>
       </div>
-      <div class="dep reveal">
+      <div class="dep">
         <p class="quote">Depoimento real do cliente aqui — a frase curta que resume o resultado ou a experiência de trabalhar com o studio.</p>
         <div class="who"><div class="avatar"></div><div><b>Nome do Cliente</b><span>Marca / Cargo</span></div></div>
       </div>
-      <div class="dep reveal">
+      <div class="dep">
         <p class="quote">Depoimento real do cliente aqui — a frase curta que resume o resultado ou a experiência de trabalhar com o studio.</p>
         <div class="who"><div class="avatar"></div><div><b>Nome do Cliente</b><span>Marca / Cargo</span></div></div>
       </div>
@@ -695,11 +672,11 @@ section{padding:96px 0}
     <div class="work-arrow reveal" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
     </div>
-    <div class="steps">
-      <div class="step reveal"><div class="num">01</div><h3>Conversa</h3><p>A gente entende sua marca, seus objetivos, desafios e necessidades.</p></div>
-      <div class="step reveal"><div class="num">02</div><h3>Estratégia</h3><p>Montamos um plano personalizado, sem fórmula pronta.</p></div>
-      <div class="step reveal"><div class="num">03</div><h3>Produção</h3><p>Produzimos com propósito e consistência para que seus objetivos e metas sejam atingidos.</p></div>
-      <div class="step reveal"><div class="num">04</div><h3>Consistência</h3><p>Acompanhamos, alinhamos e ajustamos para garantir que tudo esteja alinhado.</p></div>
+    <div class="steps reveal stagger">
+      <div class="step"><div class="num">01</div><h3>Conversa</h3><p>A gente entende sua marca, seus objetivos, desafios e necessidades.</p></div>
+      <div class="step"><div class="num">02</div><h3>Estratégia</h3><p>Montamos um plano personalizado, sem fórmula pronta.</p></div>
+      <div class="step"><div class="num">03</div><h3>Produção</h3><p>Produzimos com propósito e consistência para que seus objetivos e metas sejam atingidos.</p></div>
+      <div class="step"><div class="num">04</div><h3>Consistência</h3><p>Acompanhamos, alinhamos e ajustamos para garantir que tudo esteja alinhado.</p></div>
     </div>
   </div>
 </section>
@@ -779,7 +756,7 @@ section{padding:96px 0}
   <div class="container">
     <div class="analise-grid">
       <!-- Coluna esquerda: título + benefícios -->
-      <div class="analise-intro reveal">
+      <div class="analise-intro reveal from-left">
         <h2>Ganhe uma <u>análise de perfil</u> grátis</h2>
         <div class="analise-benef">
           <p>Fazemos uma análise profissional do perfil da sua empresa</p>
@@ -789,7 +766,7 @@ section{padding:96px 0}
       </div>
 
       <!-- Coluna direita: card branco simples -->
-      <div class="form-card reveal">
+      <div class="form-card reveal from-right">
         <div class="fc-ico" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
         </div>
@@ -915,70 +892,6 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 });
 
-/* Letreiro de serviços -> painel de detalhes */
-const SERVICOS = {
-  social: {
-    titulo: 'Social Media',
-    desc: 'A gente cuida da presença da sua marca nas redes de ponta a ponta: planejamento de conteúdo, criação, publicação e acompanhamento. Uma comunicação consistente, com a cara da marca e pensada para conversar com as pessoas certas.',
-    itens: ['Planejamento de conteúdo','Criação e design','Calendário editorial','Gestão e publicação','Relatórios de desempenho'],
-    wa: 'https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20Social%20Media',
-    ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>'
-  },
-  captacao: {
-    titulo: 'Captação',
-    desc: 'Imagem é a primeira impressão. Produzimos fotos e vídeos que valorizam o seu produto e traduzem a identidade da marca — do ensaio de produto ao conteúdo do dia a dia, com direção e olhar autoral.',
-    itens: ['Fotografia de produto','Captação de vídeo','Ensaios editoriais','Conteúdo para redes','Direção de arte'],
-    wa: 'https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20Capta%C3%A7%C3%A3o',
-    ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l2-3h4l1 2h5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="3.4"/></svg>'
-  },
-  trafego: {
-    titulo: 'Tráfego Pago',
-    desc: 'Estratégias de mídia paga para colocar sua marca na frente das pessoas certas. Estruturamos, acompanhamos e ajustamos as campanhas para transformar investimento em alcance e crescimento — com transparência nos números.',
-    itens: ['Meta Ads','Google Ads','Estruturação de campanhas','Segmentação de público','Otimização e relatórios'],
-    wa: 'https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20Tr%C3%A1fego%20Pago',
-    ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l16-7-4 16-4-6-8-3z"/><path d="M11 14l3-3"/></svg>'
-  },
-  sites: {
-    titulo: 'Sites e Landing Pages',
-    desc: 'Sites e páginas de conversão feitos para a sua marca comunicar com clareza e transformar visitantes em contatos. Design alinhado à identidade, foco em performance e caminho direto para o cliente falar com você.',
-    itens: ['Sites institucionais','Landing pages','Foco em conversão','Design responsivo','Integração com WhatsApp'],
-    wa: 'https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20Sites%20e%20Landing%20Pages',
-    ico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg>'
-  }
-};
-
-const panel = document.getElementById('svcPanel');
-const svcItems = document.querySelectorAll('.mq-item');
-let svcAtivo = null;
-
-function abrirServico(key, btn){
-  const s = SERVICOS[key];
-  if(!s) return;
-  // clicar de novo no mesmo fecha o painel
-  if(svcAtivo === key && panel.classList.contains('open')){
-    panel.classList.remove('open');
-    svcItems.forEach(i=>{i.classList.remove('active');i.setAttribute('aria-selected','false');});
-    svcAtivo = null;
-    return;
-  }
-  document.getElementById('svcIco').innerHTML = s.ico;
-  document.getElementById('svcTitle').textContent = s.titulo;
-  document.getElementById('svcDesc').textContent = s.desc;
-  document.getElementById('svcList').innerHTML = s.itens.map(i=>`<span>${i}</span>`).join('');
-  document.getElementById('svcCta').href = s.wa;
-  panel.classList.add('open');
-  svcAtivo = key;
-  // destaca todos os botões do mesmo serviço (há duplicatas no loop)
-  svcItems.forEach(i=>{
-    const match = i.dataset.svc === key;
-    i.classList.toggle('active', match);
-    i.setAttribute('aria-selected', match ? 'true' : 'false');
-  });
-}
-svcItems.forEach(btn=>{
-  btn.addEventListener('click', ()=>abrirServico(btn.dataset.svc, btn));
-});
-
 /* Acordeão de serviços — clica para expandir/recolher */
 document.querySelectorAll('.svc-acc-head').forEach(head=>{
   head.addEventListener('click', ()=>{
@@ -1000,11 +913,65 @@ document.querySelectorAll('.svc-acc-head').forEach(head=>{
   });
 });
 
+/* Respeita quem prefere menos movimento */
+const semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* Scroll reveal */
 const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
+  entries.forEach(e => {
+    if (e.isIntersecting){
+      e.target.classList.add('in');
+      // dispara contador se houver números dentro
+      e.target.querySelectorAll?.('[data-count]').forEach(startCount);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* Contador animado dos números */
+function startCount(el){
+  if(el.dataset.done) return;
+  el.dataset.done = '1';
+  const alvo = parseFloat(el.dataset.count) || 0;
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  if(semMovimento){ el.textContent = prefix + alvo + suffix; return; }
+  const dur = 1400; const t0 = performance.now();
+  function frame(now){
+    const p = Math.min((now - t0) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+    el.textContent = prefix + Math.round(alvo * eased) + suffix;
+    if(p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* Menu: destaca a seção ativa enquanto rola */
+const secoes = ['servicos','processo','portfolio','faq'].map(id=>document.getElementById(id)).filter(Boolean);
+const linksMenu = document.querySelectorAll('.nav-links a[href^="#"]');
+if(secoes.length){
+  const navIo = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        linksMenu.forEach(a=>a.classList.toggle('active-link', a.getAttribute('href') === '#'+e.target.id));
+      }
+    });
+  }, { threshold:.4 });
+  secoes.forEach(s=>navIo.observe(s));
+}
+
+/* Botão flutuante do WhatsApp: efeito magnético sutil */
+const wa = document.querySelector('.wa-float');
+if(wa && !semMovimento && window.matchMedia('(pointer:fine)').matches){
+  wa.addEventListener('mousemove', e=>{
+    const r = wa.getBoundingClientRect();
+    const x = e.clientX - (r.left + r.width/2);
+    const y = e.clientY - (r.top + r.height/2);
+    wa.style.transform = `translate(${x*.25}px, ${y*.25}px) scale(1.06)`;
+  });
+  wa.addEventListener('mouseleave', ()=>{ wa.style.transform = ''; });
+}
 </script>
 </body>
 </html>
