@@ -315,11 +315,23 @@ section{padding:96px 0}
 .center-cta{text-align:center;margin-top:44px}
 
 /* ---------- PROCESSO ---------- */
-.processo{background:var(--terracota);color:#fff}
-.processo .eyebrow{color:#fff}
-.processo .eyebrow::before{background:#fff}
+.processo{background:var(--grafite);color:#fff}
+.processo .eyebrow{color:rgba(255,255,255,.7)}
+.processo .eyebrow::before{background:rgba(255,255,255,.7)}
 .processo h2{color:#fff}
+.processo .sec-head{max-width:760px}
 .processo .sec-head p{color:rgba(255,255,255,.85)}
+.processo .work-label{
+  display:block;text-align:center;margin-top:16px;
+  font-family:var(--font-body);font-weight:600;font-size:.78rem;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);
+}
+.processo .work-arrow{
+  display:flex;justify-content:center;margin:14px 0 46px;color:rgba(255,255,255,.6);
+  animation:bounce 2s infinite;
+}
+.processo .work-arrow svg{width:22px;height:22px}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:8px}
 .step .num{font-family:var(--font-display);font-size:3.4rem;line-height:1;opacity:.55;margin-bottom:10px}
 .step h3{font-family:var(--font-body);font-weight:700;font-size:1.15rem;margin-bottom:8px}
@@ -499,6 +511,7 @@ section{padding:96px 0}
 </section>
 
 <!-- ============================================================ FAIXA DE NÚMEROS ============================================================ -->
+ <!-- ============================================================ NÚMEROS (resultados mensuraveis que entregamos) ============================================================ -->
 <!-- >>> AJUSTE OS NÚMEROS: troque pelos resultados reais e comprováveis do studio -->
 <section class="stats" aria-label="Números do OnzeOnze">
   <div class="container">
@@ -602,13 +615,8 @@ section{padding:96px 0}
       </div>
     </div>
 
-    <div class="center-cta reveal" style="margin-top:52px">
-      <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20entender%20qual%20servi%C3%A7o%20combina%20com%20a%20minha%20marca" target="_blank" rel="noopener">Qual desses faz sentido pra você? Chama no WhatsApp</a>
-    </div>
   </div>
 </section>
-
-<!-- ============================================================ NÚMEROS (resultados mensuraveis que entregamos) ============================================================ -->
 
 <!-- ============================================================ PROVA RÁPIDA ============================================================ -->
 <section class="proof bg-branco" aria-label="Marcas atendidas">
@@ -621,47 +629,6 @@ section{padding:96px 0}
       <div class="logo-ph"></div>
       <div class="logo-ph"></div>
       <div class="logo-ph"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ PROCESSO ============================================================ -->
-<section class="processo" id="processo">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Como funciona</span>
-      <h2>Um caminho claro, do primeiro oi ao crescimento</h2>
-    </div>
-    <div class="steps">
-      <div class="step reveal"><div class="num">01</div><h3>Conversa</h3><p>A gente entende sua marca, seus objetivos e desafios.</p></div>
-      <div class="step reveal"><div class="num">02</div><h3>Estratégia</h3><p>Montamos um plano sob medida, sem fórmula pronta.</p></div>
-      <div class="step reveal"><div class="num">03</div><h3>Produção</h3><p>Criamos conteúdo e imagem com a cara da sua marca.</p></div>
-      <div class="step reveal"><div class="num">04</div><h3>Consistência</h3><p>Acompanhamos, ajustamos e crescemos junto.</p></div>
-    </div>
-    <div class="center-cta reveal">
-      <a class="btn btn-light" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20come%C3%A7ar%20pela%20conversa" target="_blank" rel="noopener">Começar pela conversa</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ PORTFÓLIO ============================================================ -->
-<section class="bg-branco" id="portfolio">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Portfólio</span>
-      <h2>Nosso trabalho fala por nós</h2>
-    </div>
-    <div class="grid-port">
-      <!-- PLACEHOLDER: cada .img recebe uma foto real do projeto -->
-      <div class="port-item reveal"><div class="img p1"></div><div class="meta"><span class="tag">Fotografia</span><h3>Projeto Marca A</h3></div></div>
-      <div class="port-item reveal"><div class="img p2"></div><div class="meta"><span class="tag">Conteúdo</span><h3>Projeto Marca B</h3></div></div>
-      <div class="port-item reveal"><div class="img p3"></div><div class="meta"><span class="tag">Estratégia</span><h3>Projeto Marca C</h3></div></div>
-      <div class="port-item reveal"><div class="img p4"></div><div class="meta"><span class="tag">Publicidade</span><h3>Projeto Marca D</h3></div></div>
-      <div class="port-item reveal"><div class="img p5"></div><div class="meta"><span class="tag">Fotografia</span><h3>Projeto Marca E</h3></div></div>
-      <div class="port-item reveal"><div class="img p6"></div><div class="meta"><span class="tag">Conteúdo</span><h3>Projeto Marca F</h3></div></div>
-    </div>
-    <div class="center-cta reveal">
-      <a class="btn btn-primary" href="https://wa.me/55XXXXXXXXXXX?text=Oi!%20Vim%20pelo%20site%20e%20quero%20um%20trabalho%20assim%20para%20a%20minha%20marca" target="_blank" rel="noopener">Quero um trabalho assim para minha marca</a>
     </div>
   </div>
 </section>
@@ -690,6 +657,28 @@ section{padding:96px 0}
     </div>
   </div>
 </section>
+
+<!-- ============================================================ PROCESSO ============================================================ -->
+<section class="processo" id="processo">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>Organização e suporte personalizado são nossos valores, desde o primeiro contato</h2>
+      <span class="work-label">— veja como trabalhamos —</span>
+    </div>
+    <div class="work-arrow reveal" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01</div><h3>Conversa</h3><p>A gente entende sua marca, seus objetivos, desafios e necessidades.</p></div>
+      <div class="step reveal"><div class="num">02</div><h3>Estratégia</h3><p>Montamos um plano personalizado, sem fórmula pronta.</p></div>
+      <div class="step reveal"><div class="num">03</div><h3>Produção</h3><p>Produzimos com propósito e consistência para que seus objetivos e metas sejam atingidos.</p></div>
+      <div class="step reveal"><div class="num">04</div><h3>Consistência</h3><p>Acompanhamos, alinhamos e ajustamos para garantir que tudo esteja alinhado.</p></div>
+    </div>
+  </div>
+</section>
+
+
+
 
 <!-- ============================================================ CTA FINAL ============================================================ -->
 <section class="cta-final" id="contato">
